@@ -6,6 +6,10 @@ import { Ionicons } from "@expo/vector-icons";
 import Festival from "./components/Festival/festival";
 import Login from "./components/Login/login";
 import ChatBot from "./components/ChatBot/chatbot";
+import Fcontent from "./components/Content/content1";
+import Scontent from "./components/Content/content2";
+import Tcontent from "./components/Content/content3";
+import { createStackNavigator } from "@react-navigation/stack";
 
 function GoHome() {
   return (
@@ -16,6 +20,22 @@ function GoHome() {
 }
 
 const Tab = createBottomTabNavigator();
+const FestivalStack = createStackNavigator();
+
+function FestivalNavigator() {
+  return (
+    <FestivalStack.Navigator>
+      <FestivalStack.Screen
+        name="Festival"
+        component={Festival}
+        options={{ headerShown: false }}
+      />
+      <FestivalStack.Screen name="First" component={Fcontent} />
+      <FestivalStack.Screen name="Second" component={Scontent} />
+      <FestivalStack.Screen name="Third" component={Tcontent} />
+    </FestivalStack.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -40,7 +60,11 @@ export default function App() {
         })}
       >
         <Tab.Screen name="HOME" component={GoHome} />
-        <Tab.Screen name="FESTIVAL" component={Festival} />
+        <Tab.Screen
+          name="FESTIVAL"
+          component={FestivalNavigator}
+          options={{ headerShown: false }}
+        />
         <Tab.Screen name="LOGIN" component={Login} />
         <Tab.Screen name="CHATBOT" component={ChatBot} />
       </Tab.Navigator>

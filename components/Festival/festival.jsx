@@ -25,6 +25,7 @@ const card = [
     likes: "1,530",
     location: "엑스포타워",
     image: kkoomImage,
+    ScreenName: "First",
   },
   {
     id: "2",
@@ -33,6 +34,7 @@ const card = [
     likes: "1,530",
     location: "한빛타워",
     image: han,
+    ScreenName: "Second",
   },
   {
     id: "3",
@@ -41,6 +43,7 @@ const card = [
     likes: "1,530",
     location: "성심당",
     image: sung,
+    ScreenName: "Third",
   },
 ];
 
@@ -79,9 +82,12 @@ const DatePickerAndMap = () => {
   );
 };
 
-const ContentCard = ({ item }) => {
+const ContentCard = ({ item, navigation }) => {
   return (
-    <View style={styles.cardContainer}>
+    <TouchableOpacity
+      style={styles.cardContainer}
+      onPress={() => navigation.navigate(item.ScreenName, { item: item })}
+    >
       <ImageBackground
         source={
           typeof item.image === "string" ? { uri: item.image } : item.image
@@ -114,10 +120,11 @@ const ContentCard = ({ item }) => {
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
   );
 };
-export default function Festival() {
+
+export default function Festival({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -125,7 +132,7 @@ export default function Festival() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <DatePickerAndMap />
         {card.map((item) => (
-          <ContentCard key={item.id} item={item} />
+          <ContentCard key={item.id} item={item} navigation={navigation} />
         ))}
       </ScrollView>
     </SafeAreaView>
@@ -190,17 +197,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cardContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    width: width * 0.9,
+    alignSelf: "center",
+    marginVertical: 10,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   cardImage: {
     width: "100%",
-    height: width * 0.9 * 1.3, // 이미지 비율에 맞게 조절
+    height: width * 0.9 * 1.2,
     justifyContent: "space-between",
-    padding: 20,
+    padding: 1.0,
+    borderRadius: 22,
+    overflow: "hidden",
   },
   likeButton: {
     alignSelf: "flex-start",
+    padding: 10,
+    overflow: "hidden",
   },
   cardTextContainer: {
     backgroundColor: "rgba(0,0,0,0.3)", // 텍스트 가독성을 위한 투명한 오버레이
