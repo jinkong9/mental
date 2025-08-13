@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 export default function Login() {
   return (
     <View style={styles.container}>
-      <Text>Login</Text>
+      <Text>fsefsdfdfdf</Text>
     </View>
   );
 }
