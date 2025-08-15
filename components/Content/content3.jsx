@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const ThirdImg = require("../../assets/sung.png");
 
@@ -14,26 +15,56 @@ const info3 = {
 
 const Viewcontent = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Image
         style={styles.viewImage}
         source={
-          typeof info3.image === "string" ? { uri: info3.img } : info3.image
+          typeof info3.image === "string" ? { uri: info3.image } : info3.image
         }
         imageStyle={{ borderRadius: 20 }}
       ></Image>
-      <Text style={styles.font}>
-        <Text style={{ fontWeight: "bold" }}>제목: </Text>
-        <Text>{info3.title}</Text>
-        {"\n"}
-        {"\n"}
-        <Text style={{ fontWeight: "bold" }}>장소: </Text>
-        <Text>{info3.subtitle}</Text>
-        {"\n"}
-        {"\n"}
-        <Text style={{ fontWeight: "bold" }}>좋아요: </Text>
-        <Text>{info3.likes}</Text>
-      </Text>
+      <View>
+        <Text style={styles.title}>{info3.title}</Text>
+      </View>
+      <View>
+        <ScrollView horizontal={true} style={styles.scrollView}>
+          <View style={styles.box}>
+            <View style={styles.contentRow}>
+              <Ionicons
+                name="cellular-outline"
+                size={20}
+                color="#333"
+                style={styles.icon}
+              />
+              <Text style={styles.text}>방문수 : 1,000</Text>
+            </View>
+          </View>
+          <View style={styles.box}>
+            <View style={styles.contentRow}>
+              <Ionicons
+                style={styles.icon}
+                name="heart"
+                color="#333"
+                size={20}
+              ></Ionicons>
+              <Text style={styles.text}> 좋아요 수 : {info3.likes}</Text>
+            </View>
+          </View>
+          <View style={styles.box}>
+            <View style={styles.contentRow}>
+              <Ionicons
+                style={styles.icon}
+                color="#333"
+                name="location"
+                size={20}
+              ></Ionicons>
+              <Text style={styles.text}>
+                {info3.location},{info3.subtitle}
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -43,9 +74,56 @@ export default function Tcontent() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    // justifyContent: "flex-start",
+  },
   viewImage: {
-    width: "100%",
-    height: "80%",
+    width: "80%",
+    height: "50%",
+    borderRadius: 50,
+    marginTop: 40,
+    marginBottom: 10,
+    // resizeMode: "contain",
+    // aspectRatio: 1,
+  },
+  contentRow: {
+    flexDirection: "col", // 가로 방향으로 정렬
+    alignItems: "center", // 세로 중앙 정렬
+    justifyContent: "flex-start",
+    gap: 8, // 아이콘과 텍스트 사이 간격
+    flexWrap: "wrap", // 텍스트가 길어질 경우 줄바꿈
+  },
+  icon: {
+    justifyContent: "flex-start",
+    alignContent: "flex-start",
+    width: 20,
+  },
+  slide: {
+    flex: 1,
+    paddingTop: 50,
+  },
+  box: {
+    width: 200,
+    height: 150,
+    backgroundColor: "#cbcdce",
+    marginHorizontal: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  scrollView: {
+    paddingVertical: 20,
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
   },
   font: {
     flex: 1,

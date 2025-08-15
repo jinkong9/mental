@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-export default function Login() {
+export default function Location() {
   return (
     <View style={styles.container}>
       <Text>Login</Text>

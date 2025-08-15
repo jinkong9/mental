@@ -4,12 +4,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import Festival from "./components/Festival/festival";
-import Login from "./components/Login/login";
 import ChatBot from "./components/ChatBot/chatbot";
 import Fcontent from "./components/Content/content1";
 import Scontent from "./components/Content/content2";
 import Tcontent from "./components/Content/content3";
 import { createStackNavigator } from "@react-navigation/stack";
+import Location from "./components/Location/location";
 
 function GoHome() {
   return (
@@ -48,8 +48,8 @@ export default function App() {
               iconName = "home";
             } else if (route.name === "FESTIVAL") {
               iconName = "balloon-sharp";
-            } else if (route.name === "LOGIN") {
-              iconName = "log-in";
+            } else if (route.name === "LOCATION") {
+              iconName = "navigate-circle";
             } else if (route.name === "CHATBOT") {
               iconName = "chatbubbles";
             }
@@ -65,7 +65,7 @@ export default function App() {
           component={FestivalNavigator}
           options={{ headerShown: false }}
         />
-        <Tab.Screen name="LOGIN" component={Login} />
+        <Tab.Screen name="LOCATION" component={Location} />
         <Tab.Screen name="CHATBOT" component={ChatBot} />
       </Tab.Navigator>
     </NavigationContainer>
