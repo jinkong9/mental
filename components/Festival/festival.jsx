@@ -25,7 +25,7 @@ const card = [
     likes: "1,530",
     location: "엑스포타워",
     image: kkoomImage,
-    ScreenName: "First",
+    ScreenName: "꿈돌이",
   },
   {
     id: "2",
@@ -34,7 +34,7 @@ const card = [
     likes: "1,530",
     location: "한빛타워",
     image: han,
-    ScreenName: "Second",
+    ScreenName: "한빛타워",
   },
   {
     id: "3",
@@ -43,7 +43,7 @@ const card = [
     likes: "1,530",
     location: "성심당",
     image: sung,
-    ScreenName: "Third",
+    ScreenName: "성심당",
   },
 ];
 
