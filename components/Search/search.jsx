@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
   keyboardView: {
     flex: 1,
   },
-  // 상단 검색바 (새로운 스타일)
+  // 상단 검색바
   topSearchBar: {
     height: 56,
     backgroundColor: '#FFFFFF',
@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 8,
   },
-  // 검색창 컨테이너 (새로운 스타일)
+  // 검색창 컨테이너
   searchInputContainer: {
     flex: 1,
     height: 40,
