@@ -11,6 +11,7 @@ import {
   StatusBar,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import axios from "axios";
 
 const kkoomImage = require("../../assets/kom.png");
 const han = require("../../assets/han.png");
@@ -46,6 +47,21 @@ const card = [
     ScreenName: "성심당",
   },
 ];
+
+// const api = axios.create({
+//   baseURL: "http://localhost:8080",
+//   withCredentials: true,
+// });
+
+// const SetLocation = async () => {
+//   try {
+//     const res = await axios.get(
+//       "http://localhost:8080/places/search?keyword=대전"
+//     );
+//   } catch (err) {
+//     console.log("err", err);
+//   }
+// };
 
 const Header = () => {
   return (

@@ -20,11 +20,7 @@ export default function Login({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.contentContainer}>
-        <Image
-          source={KOM} // 갓을 쓴 AI 봇 이미지 경로
-          style={styles.robotImage}
-          resizeMode="contain"
-        />
+        <Image source={KOM} style={styles.robotImage} resizeMode="contain" />
         <View style={styles.textContainer}>
           <Text style={styles.title}>내 손안의 AI 지역 가이드</Text>
           <Text style={styles.subtitle}>
