@@ -4,13 +4,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import Festival from "./components/Festival/festival";
-import ChatBot from "./components/ChatBot/chatbot";
 import Fcontent from "./components/Content/content1";
 import Scontent from "./components/Content/content2";
 import Tcontent from "./components/Content/content3";
 import { createStackNavigator } from "@react-navigation/stack";
 import Location from "./components/Location/location";
 import Login from "./components/Login/login";
+import ChatScreen from "./components/ChatBot/chatscreen";
 
 function GoHome() {
   return (
@@ -67,7 +67,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Tab.Screen name="LOCATION" component={Location} />
-        <Tab.Screen name="CHATBOT" component={ChatBot} />
+        <Tab.Screen name="CHATBOT" component={ChatScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
