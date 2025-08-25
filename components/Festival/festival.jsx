@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,54 +14,39 @@ import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 
 const kkoomImage = require("../../assets/kom.png");
-const han = require("../../assets/han.png");
-const sung = require("../../assets/sung.png");
+const sikjang = require("../../assets/식장산.png");
+const sungsim = require("../../assets/성심당.png");
 
 const { width } = Dimensions.get("window");
 const card = [
   {
     id: "1",
-    title: "홍보문구 도심을 누비다",
+    title: "대전의 마스코트, 엑스포공원",
     subtitle: "DAEJEON",
     likes: "1,530",
-    location: "엑스포타워",
+    location: "엑스포공원",
     image: kkoomImage,
-    ScreenName: "꿈돌이",
+    ScreenName: "엑스포공원",
   },
   {
     id: "2",
-    title: "아름다운 도시의 야경",
+    title: "아름다운 대전의 야경, 식장산",
     subtitle: "DAEJEON",
-    likes: "1,530",
-    location: "한빛타워",
-    image: han,
+    likes: "1,230",
+    location: "식장산",
+    image: sikjang,
     ScreenName: "한빛타워",
   },
   {
     id: "3",
-    title: "숨겨진 보석 같은 장소",
+    title: "대전은 빵의 도시, 성심당",
     subtitle: "DAEJEON",
-    likes: "1,530",
+    likes: "2,305",
     location: "성심당",
-    image: sung,
+    image: sungsim,
     ScreenName: "성심당",
   },
 ];
-
-// const api = axios.create({
-//   baseURL: "http://localhost:8080",
-//   withCredentials: true,
-// });
-
-// const SetLocation = async () => {
-//   try {
-//     const res = await axios.get(
-//       "http://localhost:8080/places/search?keyword=대전"
-//     );
-//   } catch (err) {
-//     console.log("err", err);
-//   }
-// };
 
 const Header = () => {
   return (
@@ -77,6 +62,21 @@ const Header = () => {
   );
 };
 const DatePickerAndMap = () => {
+  const [lodata, setLodata] = useState("대전");
+
+  const api = axios.create({
+    baseURL: "http://localhost:8080",
+  });
+
+  const fetchlocation = async () => {
+    try {
+      const res = await api.post("/places/set-location", {
+        location: lodata,
+      });
+    } catch (err) {
+      console.log("err", err.response);
+    }
+  };
   return (
     <View style={styles.dateMapContainer}>
       <TouchableOpacity style={styles.datePickerButton}>
@@ -87,8 +87,8 @@ const DatePickerAndMap = () => {
           style={styles.iconMargin}
         />
         <View>
-          <Text style={styles.datePickerLabel}>대전 여행 날짜</Text>
-          <Text style={styles.datePickerText}>2025.08.27 - 2025.08.28</Text>
+          <Text style={styles.datePickerLabel}>{lodata}</Text>
+          <Text style={styles.datePickerText}>2025.08.25 - 2025.08.26</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styles.mapButton}>

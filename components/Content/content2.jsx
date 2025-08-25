@@ -6,10 +6,10 @@ const SecondImg = require("../../assets/han.png");
 
 const info2 = {
   id: "2",
-  title: "아름다운 도시의 야경",
+  title: "대전의 밤, 식장산",
   subtitle: "DAEJEON",
-  likes: "1,530",
-  location: "한빛타워",
+  likes: "1,230",
+  location: "식장산",
   image: SecondImg,
 };
 
@@ -36,7 +36,7 @@ const Viewcontent = () => {
                 color="#333"
                 style={styles.icon}
               />
-              <Text style={styles.text}>방문수 : 1,000</Text>
+              <Text style={styles.text}>방문수 : 2,124</Text>
             </View>
           </View>
           <View style={styles.box}>

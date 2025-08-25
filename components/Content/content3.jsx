@@ -6,9 +6,9 @@ const ThirdImg = require("../../assets/sung.png");
 
 const info3 = {
   id: "3",
-  title: "숨겨진 보석 같은 장소",
+  title: "빵의 1번지, 성심당",
   subtitle: "DAEJEON",
-  likes: "1,530",
+  likes: "2,350",
   location: "성심당",
   image: ThirdImg,
 };
@@ -36,7 +36,7 @@ const Viewcontent = () => {
                 color="#333"
                 style={styles.icon}
               />
-              <Text style={styles.text}>방문수 : 1,000</Text>
+              <Text style={styles.text}>방문수 : 3,124</Text>
             </View>
           </View>
           <View style={styles.box}>

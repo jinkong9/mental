@@ -9,16 +9,9 @@ import Scontent from "./components/Content/content2";
 import Tcontent from "./components/Content/content3";
 import { createStackNavigator } from "@react-navigation/stack";
 import Location from "./components/Location/location";
-import Login from "./components/Login/login";
+import Home from "./components/Home/home";
 import ChatScreen from "./components/ChatBot/chatscreen";
-
-function GoHome() {
-  return (
-    <View style={styles.container}>
-      <Text>HOME</Text>
-    </View>
-  );
-}
+import axios from "axios";
 
 const Tab = createBottomTabNavigator();
 const FestivalStack = createStackNavigator();
@@ -31,7 +24,7 @@ function FestivalNavigator() {
         component={Festival}
         options={{ headerShown: false }}
       />
-      <FestivalStack.Screen name="꿈돌이" component={Fcontent} />
+      <FestivalStack.Screen name="엑스포공원" component={Fcontent} />
       <FestivalStack.Screen name="한빛타워" component={Scontent} />
       <FestivalStack.Screen name="성심당" component={Tcontent} />
     </FestivalStack.Navigator>
@@ -60,7 +53,7 @@ export default function App() {
           tabBarInactiveTintColor: "black",
         })}
       >
-        <Tab.Screen name="HOME" component={Login} />
+        <Tab.Screen name="HOME" component={Home} />
         <Tab.Screen
           name="FESTIVAL"
           component={FestivalNavigator}

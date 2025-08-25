@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,14 +9,35 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 import KOM from "../../assets/robot.png";
-
-// const start = ({navigation})=>{
-//   <TouchableOpacity
-//   onPress={()=>navigation.navigate()}
-//   ></TouchableOpacity>
-// }
+import axios from "axios";
 
 export default function Login({ navigation }) {
+  const [data, setData] = useState([]);
+
+  const api = axios.create({
+    baseURL: "http://54.180.248.91:8080",
+    // withCredentials: true,
+  });
+
+  const homedata = async (e) => {
+    try {
+      const res = await api.get("/api/home/festivals");
+      console.log("성공", res.data);
+      setData(res.data.festivals);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+
+  const fetchdata = useEffect(() => {
+    homedata();
+  }, []);
+
+  const randomFestival =
+    data.length > 0
+      ? data[Math.floor(Math.random() * data.length)]
+      : "축제 정보가 없습니다.";
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.contentContainer}>
@@ -26,7 +47,6 @@ export default function Login({ navigation }) {
           <Text style={styles.subtitle}>
             AI가 찾아주는 우리 동네의 숨겨진 명소와 {"\n"}
             맛집, 이벤트들을 만나보세요.
-            {/* 이부분 API연결해서 랜덤축제 */}
           </Text>
         </View>
         <TouchableOpacity
@@ -35,6 +55,11 @@ export default function Login({ navigation }) {
         >
           <Text style={styles.buttonText}>시작하기</Text>
         </TouchableOpacity>
+        <View>
+          <Text style={styles.apitext}>
+            현재 진행중인 축제 : {randomFestival}
+          </Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -73,6 +98,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#666",
     lineHeight: 24,
+  },
+  apitext: {
+    marginTop: 10,
+    fontSize: 20,
+    textAlign: "center",
+    color: "#333",
+    lineHeight: 24,
+    fontFamily: "bold",
   },
   button: {
     backgroundColor: "#4682B4", // 청색 계열

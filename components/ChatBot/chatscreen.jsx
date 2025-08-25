@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -10,35 +10,116 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  Animated,
 } from "react-native";
+import axios from "axios";
 
 // 더미 아바타 이미지 (원하면 실제 경로로 교체)
 const userAvatar = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
 const botAvatar = "https://cdn-icons-png.flaticon.com/512/4712/4712109.png";
 
+/* --- 점 3개 깜빡이는 애니메이션 컴포넌트 --- */
+function TypingIndicator() {
+  const dot1 = useRef(new Animated.Value(0.3)).current;
+  const dot2 = useRef(new Animated.Value(0.3)).current;
+  const dot3 = useRef(new Animated.Value(0.3)).current;
+
+  useEffect(() => {
+    const animateDot = (dot, delay) => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(dot, {
+            toValue: 1,
+            duration: 400,
+            delay,
+            useNativeDriver: true,
+          }),
+          Animated.timing(dot, {
+            toValue: 0.3,
+            duration: 400,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    };
+
+    animateDot(dot1, 0);
+    animateDot(dot2, 200);
+    animateDot(dot3, 400);
+  }, []);
+
+  return (
+    <View style={styles.typingWrapper}>
+      <Text style={styles.thinkingText}>잠시만 기다려주세요</Text>
+      <View style={styles.typingContainer}>
+        <Animated.View style={[styles.dot, { opacity: dot1 }]} />
+        <Animated.View style={[styles.dot, { opacity: dot2 }]} />
+        <Animated.View style={[styles.dot, { opacity: dot3 }]} />
+      </View>
+    </View>
+  );
+}
+
 export default function ChatScreen() {
   const [messages, setMessages] = useState([
-    { id: "1", text: "Hi there! How can I help you today?", sender: "bot" },
+    { id: "1", text: "무엇을 도와 드릴까요 ?", sender: "bot" },
   ]);
   const [input, setInput] = useState("");
 
-  // 메시지 전송
-  const handleSend = () => {
+  const api = axios.create({
+    baseURL: "http://54.180.248.91:8080",
+  });
+
+  // 메시지 전송 및 API 호출
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const userMsg = { id: Date.now().toString(), text: input, sender: "user" };
     setMessages((prev) => [...prev, userMsg]);
+
+    const userQuestion = input;
     setInput("");
 
-    // 간단한 봇 응답 (추후 axios API 연동 가능)
-    setTimeout(() => {
-      const botMsg = {
-        id: Date.now().toString(),
-        text: "This is a chatbot response!",
-        sender: "bot",
-      };
-      setMessages((prev) => [...prev, botMsg]);
-    }, 800);
+    // thinking 메시지 추가
+    const thinkingId = Date.now().toString() + "_thinking";
+    const thinkingMsg = {
+      id: thinkingId,
+      text: "",
+      sender: "bot",
+      thinking: true,
+    };
+    setMessages((prev) => [...prev, thinkingMsg]);
+
+    try {
+      const res = await api.post("/api/chatbot", { question: userQuestion });
+
+      const botResponseText = res.data;
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === thinkingId
+            ? {
+                id: Date.now().toString(),
+                text: botResponseText,
+                sender: "bot",
+              }
+            : msg
+        )
+      );
+      console.log(res);
+    } catch (err) {
+      console.log("API 호출 실패:", err);
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === thinkingId
+            ? {
+                id: Date.now().toString(),
+                text: "봇 응답을 가져오는 데 실패했습니다. 다시 시도해 주세요.",
+                sender: "bot",
+              }
+            : msg
+        )
+      );
+    }
   };
 
   const renderItem = ({ item }) => {
@@ -54,9 +135,13 @@ export default function ChatScreen() {
             isUser ? styles.userBubble : styles.botBubble,
           ]}
         >
-          <Text style={isUser ? styles.userText : styles.botText}>
-            {item.text}
-          </Text>
+          {item.thinking ? (
+            <TypingIndicator />
+          ) : (
+            <Text style={isUser ? styles.userText : styles.botText}>
+              {item.text}
+            </Text>
+          )}
         </View>
         {isUser && <Image source={{ uri: userAvatar }} style={styles.avatar} />}
       </View>
@@ -66,8 +151,8 @@ export default function ChatScreen() {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"} // iOS면 padding, Android는 height
-      keyboardVerticalOffset={90} // 탭바나 헤더 높이에 맞춰 조정
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={90}
     >
       <SafeAreaView style={styles.container}>
         {/* 헤더 */}
@@ -81,15 +166,20 @@ export default function ChatScreen() {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.messagesList}
+          ref={(ref) => (this.flatList = ref)}
+          onContentSizeChange={() =>
+            this.flatList.scrollToEnd({ animated: true })
+          }
         />
 
         {/* 입력창 */}
         <View style={styles.inputRow}>
           <TextInput
             style={styles.input}
-            placeholder="Ask me anything..."
+            placeholder="궁금하신 내용을 입력해주세요."
             value={input}
             onChangeText={setInput}
+            onSubmitEditing={handleSend}
           />
           <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
             <Text style={styles.sendText}>➤</Text>
@@ -109,9 +199,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerTitle: { fontSize: 18, fontWeight: "bold" },
-
   messagesList: { padding: 10 },
-
   messageRow: {
     flexDirection: "row",
     alignItems: "flex-end",
@@ -119,9 +207,7 @@ const styles = StyleSheet.create({
   },
   userRow: { justifyContent: "flex-end" },
   botRow: { justifyContent: "flex-start" },
-
   avatar: { width: 32, height: 32, borderRadius: 16, marginHorizontal: 6 },
-
   messageBubble: {
     padding: 12,
     borderRadius: 16,
@@ -135,10 +221,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1F1F1",
     borderTopLeftRadius: 0,
   },
-
   userText: { color: "#fff" },
   botText: { color: "#000" },
-
   inputRow: {
     flexDirection: "row",
     padding: 10,
@@ -160,4 +244,27 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   sendText: { color: "#fff", fontSize: 16 },
+
+  /* typing indicator */
+  typingWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  thinkingText: {
+    fontSize: 12,
+    color: "#555",
+    marginRight: 6,
+  },
+  typingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: 20,
+  },
+  dot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: "#555",
+    marginHorizontal: 2,
+  },
 });

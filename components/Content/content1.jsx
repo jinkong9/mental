@@ -11,7 +11,7 @@ const info1 = {
   title: "대전의 마스코트 꿈돌이",
   subtitle: "DAEJEON",
   likes: "1,530",
-  location: "엑스포타워",
+  location: "엑스포공원",
   image: l,
 };
 
@@ -38,7 +38,7 @@ const Viewcontent = () => {
                 color="#333"
                 style={styles.icon}
               />
-              <Text style={styles.text}>방문수 : 1,000</Text>
+              <Text style={styles.text}>방문수 : 2,125</Text>
             </View>
           </View>
           <View style={styles.box}>
