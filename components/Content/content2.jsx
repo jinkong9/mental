@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const SecondImg = require("../../assets/han.png");
+const SecondImg = require("../../assets/식장산.png");
 
 const info2 = {
   id: "2",

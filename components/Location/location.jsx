@@ -258,12 +258,16 @@ export default function Location() {
                 {DAEJEON_AREAS.map((item, index) => (
                   <View key={item.id}>
                     <View style={styles.divider} />
-                    <View style={styles.listItemContainer}>
+                    <TouchableOpacity
+                      style={styles.listItemContainer}
+                      onPress={() =>
+                        navigation.navigate("FESTIVAL", { area: item })
+                      }
+                    >
                       <Text style={styles.listItem}>
-                        <Text style={styles.listItem}>{item.name}</Text> :{" "}
-                        {item.description}
+                        {item.name} : {item.description}
                       </Text>
-                    </View>
+                    </TouchableOpacity>
                   </View>
                 ))}
 

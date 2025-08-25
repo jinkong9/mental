@@ -66,6 +66,7 @@ export default function ChatScreen() {
 
   const api = axios.create({
     baseURL: "http://54.180.248.91:8080",
+    timeout: 10000,
   });
 
   const handleSend = async () => {

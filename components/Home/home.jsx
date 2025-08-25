@@ -42,14 +42,14 @@ export default function Login({ navigation }) {
       <View style={styles.contentContainer}>
         <Image source={KOM} style={styles.robotImage} resizeMode="contain" />
         <View style={styles.textContainer}>
-          <Text style={styles.title}>내 손안의 AI 지역 가이드</Text>
+          <Text style={styles.title}>COUNTRYSIDE</Text>
           <Text style={styles.subtitle}>
             AI가 찾아주는 우리 동네의 숨겨진 명소와 {"\n"}
             맛집, 이벤트들을 만나보세요.
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("FESTIVAL")}
+          onPress={() => navigation.navigate("LOCATION")}
           style={styles.button}
         >
           <Text style={styles.buttonText}>시작하기</Text>
