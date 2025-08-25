@@ -102,11 +102,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   contentRow: {
-    flexDirection: "col", // 가로 방향으로 정렬
-    alignItems: "center", // 세로 중앙 정렬
+    flexDirection: "col",
+    alignItems: "center",
     justifyContent: "flex-start",
-    gap: 8, // 아이콘과 텍스트 사이 간격
-    flexWrap: "wrap", // 텍스트가 길어질 경우 줄바꿈
+    gap: 8,
+    flexWrap: "wrap",
   },
   icon: {
     justifyContent: "flex-start",

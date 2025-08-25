@@ -15,7 +15,6 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-// 대전 지역 데이터
 const DAEJEON_AREAS = [
   {
     id: "1",
@@ -107,7 +106,6 @@ export default function Location() {
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    // 검색어가 있을 때만 필터링 수행
     if (searchQuery.trim()) {
       setIsSearching(true);
       const filtered = DAEJEON_AREAS.filter(
@@ -129,7 +127,6 @@ export default function Location() {
 
   const handlePopularPlace = (place) => {
     setSearchQuery(place);
-    // 검색 실행은 onChangeText에서 이미 이루어짐
   };
 
   const clearSearch = () => {
@@ -218,10 +215,9 @@ export default function Location() {
         <ScrollView
           style={styles.contentContainer}
           showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled" // 키보드 관련 터치 이벤트 처리
+          keyboardShouldPersistTaps="handled"
         >
           {isSearching ? (
-            // 검색 결과
             <View>
               <Text style={styles.sectionTitle}>
                 검색 결과 ({filteredAreas.length}개)
@@ -231,7 +227,7 @@ export default function Location() {
                   data={filteredAreas}
                   keyExtractor={(item) => item.id}
                   renderItem={renderSearchResult}
-                  scrollEnabled={false} // 부모 ScrollView와 충돌 방지
+                  scrollEnabled={false}
                 />
               ) : (
                 <View style={styles.emptyContainer}>
@@ -244,7 +240,6 @@ export default function Location() {
               )}
             </View>
           ) : (
-            // 기본 화면: 인기 장소만 표시
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>지금 가장 인기있는</Text>
               <View style={styles.tagContainer}>
@@ -271,7 +266,7 @@ export default function Location() {
                     </View>
                   </View>
                 ))}
-                {/* 마지막 항목 아래에도 실선 추가 */}
+
                 <View style={styles.divider} />
               </View>
             </View>
@@ -289,7 +284,7 @@ const styles = StyleSheet.create({
   },
   listcon: {
     marginTop: 18,
-    // 예쁜 디자인으로 변경
+
     backgroundColor: "#FFFFFF",
     borderRadius: 12,
     paddingHorizontal: 16,
@@ -307,7 +302,7 @@ const styles = StyleSheet.create({
   keyboardView: {
     flex: 1,
   },
-  // 상단 검색바
+
   topSearchBar: {
     height: 56,
     backgroundColor: "#FFFFFF",
@@ -324,7 +319,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 8,
   },
-  // 검색창 컨테이너
+
   searchInputContainer: {
     flex: 1,
     height: 40,
@@ -346,7 +341,7 @@ const styles = StyleSheet.create({
     padding: 4,
     marginLeft: 8,
   },
-  // 컨텐츠 영역
+
   contentContainer: {
     flex: 1,
     paddingHorizontal: 24,
@@ -368,7 +363,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: "500",
   },
-  // 태그 컨테이너
+
   tagContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -380,7 +375,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     marginVertical: 4,
   },
-  // 인기 장소 태그
+
   popularTagItem: {
     minWidth: 66,
     maxWidth: 240,
@@ -396,7 +391,7 @@ const styles = StyleSheet.create({
     color: "#1B1B1B",
     fontWeight: "500",
   },
-  // 검색 결과
+
   resultItem: {
     flexDirection: "row",
     alignItems: "center",
@@ -432,7 +427,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#8E8E93",
   },
-  // 빈 상태
+
   emptyContainer: {
     alignItems: "center",
     paddingVertical: 60,

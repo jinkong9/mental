@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   cardTextContainer: {
-    backgroundColor: "rgba(0,0,0,0.3)", // 텍스트 가독성을 위한 투명한 오버레이
+    backgroundColor: "rgba(0,0,0,0.3)",
     borderRadius: 10,
     padding: 10,
   },

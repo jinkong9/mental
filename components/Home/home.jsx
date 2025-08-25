@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import { useFonts } from "expo-font";
 import KOM from "../../assets/robot.png";
 import axios from "axios";
 
@@ -68,7 +67,7 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white", // 파스텔 톤 푸른색 (단청 색상 참고)
+    backgroundColor: "white",
   },
   contentContainer: {
     flex: 1,
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
     fontFamily: "bold",
   },
   button: {
-    backgroundColor: "#4682B4", // 청색 계열
+    backgroundColor: "#4682B4",
     paddingVertical: 15,
     paddingHorizontal: 50,
     borderRadius: 30,

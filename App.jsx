@@ -11,7 +11,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Location from "./components/Location/location";
 import Home from "./components/Home/home";
 import ChatScreen from "./components/ChatBot/chatscreen";
-import axios from "axios";
 
 const Tab = createBottomTabNavigator();
 const FestivalStack = createStackNavigator();

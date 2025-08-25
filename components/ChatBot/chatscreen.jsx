@@ -14,11 +14,9 @@ import {
 } from "react-native";
 import axios from "axios";
 
-// 더미 아바타 이미지 (원하면 실제 경로로 교체)
 const userAvatar = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
 const botAvatar = "https://cdn-icons-png.flaticon.com/512/4712/4712109.png";
 
-/* --- 점 3개 깜빡이는 애니메이션 컴포넌트 --- */
 function TypingIndicator() {
   const dot1 = useRef(new Animated.Value(0.3)).current;
   const dot2 = useRef(new Animated.Value(0.3)).current;
@@ -70,7 +68,6 @@ export default function ChatScreen() {
     baseURL: "http://54.180.248.91:8080",
   });
 
-  // 메시지 전송 및 API 호출
   const handleSend = async () => {
     if (!input.trim()) return;
 
@@ -80,7 +77,6 @@ export default function ChatScreen() {
     const userQuestion = input;
     setInput("");
 
-    // thinking 메시지 추가
     const thinkingId = Date.now().toString() + "_thinking";
     const thinkingMsg = {
       id: thinkingId,
@@ -155,12 +151,10 @@ export default function ChatScreen() {
       keyboardVerticalOffset={90}
     >
       <SafeAreaView style={styles.container}>
-        {/* 헤더 */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>도움이 필요하신가요 ?</Text>
         </View>
 
-        {/* 메시지 리스트 */}
         <FlatList
           data={messages}
           renderItem={renderItem}
@@ -172,7 +166,6 @@ export default function ChatScreen() {
           }
         />
 
-        {/* 입력창 */}
         <View style={styles.inputRow}>
           <TextInput
             style={styles.input}
@@ -245,7 +238,6 @@ const styles = StyleSheet.create({
   },
   sendText: { color: "#fff", fontSize: 16 },
 
-  /* typing indicator */
   typingWrapper: {
     flexDirection: "row",
     alignItems: "center",
